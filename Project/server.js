@@ -24,10 +24,12 @@ const auth = require("./routes/auth");
 const movie = require("./routes/movie");
 const review = require("./routes/review");
 const user = require("./routes/user")
+const watchlist = require("./routes/watchlist");
 app.use("/", auth);
 app.use("/", movie);
 app.use("/", review);
 app.use("/users", user);
+app.use("/", watchlist);
 
 app.get("/", (req, res) => {
   res.send(`
