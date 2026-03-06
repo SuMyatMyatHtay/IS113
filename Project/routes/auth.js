@@ -181,7 +181,7 @@ router.post("/login", async(req, res) => {
     req.session.username = user.username; 
     req.session.role = user.role; 
 
-    res.redirect('/movies'); 
+    res.redirect('/profile'); 
   }
   catch(err) { 
     console.error(err); 
