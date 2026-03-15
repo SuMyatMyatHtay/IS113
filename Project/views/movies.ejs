@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #13131a;
+            --accent: #e8c84a;
+            --text: #f0ede6;
+            --muted: #6b6878;
+            --radius: 10px;
+        }
+
+        * {
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        /* ── Nav ── */
+        nav {
+            width: 50%;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        nav a {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1.5px;
+            font-size: 15px;
+            color: var(--muted);
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 1px solid #2a2a35;
+            border-radius: 40px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* ── Table reset into card grid ── */
+        table {
+            border-spacing: 20px;
+            border-collapse: separate;
+        }
+
+        td {
+            vertical-align: top;
+            width: 160px;
+        }
+
+        /* ── Movie card ── */
+        td a {
+            display: block;
+            text-decoration: none;
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        td a::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            border-radius: var(--radius);
+        }
+
+        td a:hover::after {
+            opacity: 1;
+        }
+
+        td a:hover img {
+            transform: scale(1.04);
+        }
+
+        td img {
+            display: block;
+            width: 150px;
+            height: 225px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            transition: transform 0.3s ease;
+            border: 1px solid #1e1e28;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/movies">Popular</a>
+        <a href="/movies?category=now_playing">Now Playing</a>
+        <a href="/movies?category=top_rated">Top Rated</a>
+        <a href="/movies?category=upcoming">Upcoming</a>
+    </nav>
+    <table>
+        <% for (let i=0; i < movies.length; i +=4) { %>
+            <tr>
+                <% for (let j=i; j < i + 4 && j < movies.length; j++) { %>
+                    <td>
+                        <a href="/details?id=<%=movies[j].id%>" name="movieID" value="">
+                            <img src="https://image.tmdb.org/t/p/w500<%= movies[j].poster_path %>" alt="<%= movies[j].title %>" width="150" />
+                        </a>
+                        <br />
+                    </td>
+                    <% } %>
+            </tr>
+            <% } %>
+    </table>
+</body>
+
+</html>
