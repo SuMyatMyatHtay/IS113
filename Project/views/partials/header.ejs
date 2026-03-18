@@ -1,32 +1,24 @@
 <header class="site-header">
   <nav class="navbar">
-    
     <div class="nav-left">
       <a href="/home" class="logo">MovieHub</a>
       <a href="/home">Home</a>
       <a href="/movies">Movies</a>
 
-      <% if (currentUser.userId) { %>
+      <% if (currentUser && currentUser.userId) { %>
         <a href="/watchlist">My Watchlist</a>
       <% } %>
     </div>
 
     <div class="nav-right">
-
-      <% if (currentUser.userId) { %>
-
-        <a href="/profile" class="profile-circle">
-            My Profile
+      <% if (currentUser && currentUser.userId) { %>
+        <a href="/profile" class="profile-circle" title="Profile">
+          <%= currentUser.username ? currentUser.username.charAt(0).toUpperCase() : "U" %>
         </a>
-
       <% } else { %>
-
         <a href="/login" class="nav-login">Login</a>
         <a href="/signup" class="nav-signup">Sign Up</a>
-
       <% } %>
-
     </div>
-
   </nav>
 </header>

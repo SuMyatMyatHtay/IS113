@@ -18,6 +18,26 @@ exports.getHomePage = async (req, res) => {
       }
     }
 
+    const category = "popular"; 
+    const response = await fetch(
+          `https://api.themoviedb.org/3/movie/${category}?api_key=${process.env.API_KEY}`
+    );
+
+    const data = await response.json();
+
+    if (data.results) {
+        featuredMovies = data.results.slice(0, 3).map(movie => ({
+            id: movie.id,
+            title: movie.title,
+            overview: movie.overview,
+            backdropUrl: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
+            posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+            rating: movie.vote_average,
+            releaseDate: movie.release_date
+        }));
+    }
+
+
     res.render("home", {
       featuredMovie,
       watchlistMovies
