@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const User = require("../models/User");
 
-// ADD YOUR CODE BELOW
 router.get("/movies", async (req, res) => {
     let movies = []
     
@@ -21,19 +21,26 @@ router.get("/movies", async (req, res) => {
 
 router.get("/details", async (req, res) => {
     let movie = {};
-    const movieID = req.query.id;
+    const movieID = Number(req.query.id);
 
     try {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`);
         const data = await response.json();
         movie = data;
+
+        // watchlist 
+        const user = await User.findById(req.session.userId);
+
+        if (!user) {
+            return res.redirect("/login");
+        }
+        const watchlist = user.watchList || [];
+        const inWatchlist = watchlist.includes(movieID);
+        
+        res.render("movieDetails", {movie, inWatchlist})
     } catch (error) {
         console.log("Error has occured");
     }
-    res.render("movieDetails", {movie})
 });
-
-
-// END OF ADDING YOUR CODE
 
 module.exports = router;
