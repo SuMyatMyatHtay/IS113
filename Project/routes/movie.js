@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const API_KEY = "3a9ab3c99c72703de8fcfa95eac4b0eb";
 const User = require("../models/User");
 
 router.get("/movies", async (req, res) => {
@@ -9,7 +8,9 @@ router.get("/movies", async (req, res) => {
     const MovieCategory = req.query.category ? req.query.category : "popular";
 
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${MovieCategory}?api_key=${API_KEY}`);
+        const response = await fetch(
+            `https://api.themoviedb.org/3/movie/${MovieCategory}?api_key=${process.env.API_KEY}`
+        );
         const data = await response.json();
         movies = data.results;
     } catch (error) {

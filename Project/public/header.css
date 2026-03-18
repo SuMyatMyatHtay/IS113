@@ -1,0 +1,95 @@
+.site-header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.logo {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #e50914 !important;
+  margin-right: 16px;
+}
+
+.nav-login {
+  color: white;
+}
+
+.nav-signup {
+  background: #e50914;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: white !important;
+  font-weight: 600;
+}
+
+.nav-signup:hover {
+  background: #c90812;
+}
+
+.profile-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #e50914;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white !important;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.35);
+}
+
+.profile-circle:hover {
+  background: #c90812;
+  transform: scale(1.05);
+}
+
+.page-with-header {
+  padding-top: 90px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px 20px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .nav-left,
+  .nav-right {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .page-with-header {
+    padding-top: 120px;
+  }
+}
