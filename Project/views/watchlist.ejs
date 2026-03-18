@@ -2,10 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= user.username %>'s Watchlist | MovieHub</title>
+    <link rel="stylesheet" href="/watchlist.css">
 </head>
+
 <body>
-    <%=user.username %>
+    <nav class="top-nav">
+      <div class="logo">MovieHub</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/movies">Movies</a>
+        <a href="/watchlist">Watchlist</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </nav>
+
+    <div class="back-row">
+        <a href="javascript:history.back()" class="back-btn">← Back</a>
+    </div>
+
+    <div class="page-content">
+        
+    <!-- <h1><%= user.username %>'s Watchlist</h1> -->
+
+        <% if (watchlistMovies.length === 0) { %>
+            <p class="empty">
+            Your watchlist is empty.  
+            Let's add some <a href="/movies">movies</a>!
+            </p>
+        <% } else { %>
+            <table>
+                <% for (let i = 0; i < watchlistMovies.length; i += 5) { %>
+                    <tr>
+                        <% let cellsInRow = 0; %>
+
+                        <% for (let j = i; j < i + 5 && j < watchlistMovies.length; j++) { %>
+                            <td>
+                                <a href="/details?id=<%= watchlistMovies[j].id %>">
+                                    <img src="https://image.tmdb.org/t/p/w500<%= watchlistMovies[j].poster_path %>" 
+                                        alt="<%= watchlistMovies[j].title %>">
+                                </a>
+
+                                <div class="movie-title">
+                                    <a href="/details?id=<%= watchlistMovies[j].id %>">
+                                        <%= watchlistMovies[j].title %>
+                                    </a>
+                                </div>
+                            </td>
+                            <% cellsInRow++; %>
+                        <% } %>
+
+                        <% for (let k = cellsInRow; k < 5; k++) { %>
+                            <td class="empty-cell"></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            </table>
+        <% } %>
+    </div>
 </body>
 </html>

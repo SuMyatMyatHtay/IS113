@@ -158,10 +158,50 @@
             padding-bottom: 12px;
             border-bottom: 1px solid var(--border);
         }
+
+        .watchlist-btn {
+            margin-top: 16px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1.5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        /* Hover effect */
+        .watchlist-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        /* Optional: different style for REMOVE */
+        .watchlist-btn.remove {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .watchlist-btn.remove:hover {
+            background: #ef4444;
+            color: white;
+        }
     </style>
 </head>
 
 <body>
+    <!-- <nav class="top-nav">
+      <div class="logo">MovieHub</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/movies">Movies</a>
+        <a href="/watchlist">Watchlist</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </nav> -->
     <div class="backdrop">
         <table>
             <tr>
@@ -192,6 +232,13 @@
                     <p>
                         <%=movie.overview%>
                     </p>
+
+                    <% if (inWatchlist) { %>
+                        <form method="POST" action="/watchlist/remove/<%= movie.id %>">
+                            <button type="submit" class="watchlist-btn remove">Remove from Watchlist</button>                        </form>
+                    <% } else { %>
+                        <form method="POST" action="/watchlist/add/<%= movie.id %>">
+                            <button type="submit" class="watchlist-btn add">Add to Watchlist</button>                    <% } %>
                 </td>
             </tr>
         </table>
