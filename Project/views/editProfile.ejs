@@ -5,17 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Profile | MovieHub</title>
   <link rel="stylesheet" href="/profile.css">
+  <link rel="stylesheet" href="/header.css">
 </head>
 <body>
-  <nav class="top-nav">
+  <!-- <nav class="top-nav">
     <div class="logo">MovieHub</div>
     <div class="nav-links">
       <a href="/home">Home</a>
       <a href="/profile">Profile</a>
       <a href="/logout" class="logout-btn">Logout</a>
     </div>
-  </nav>
-
+  </nav> -->
+  
+  <%- include("partials/header") %>
   <main class="edit-page">
     <section class="edit-card">
       <h1>Edit Profile</h1>
@@ -36,9 +38,15 @@
           <input type="email" id="email" name="email" value="<%= user.email %>" required>
         </div>
 
-        <div class="input-group">
-          <label for="favouriteGenre">Favourite Genre</label>
-          <input type="text" id="favouriteGenre" name="favouriteGenre" value="<%= user.favouriteGenre %>">
+        <label >Favourite Genre</label>
+        <div class="genre-container">
+          <% genres.forEach(g => { %>
+            <label class="genre-tag">
+              <input type="checkbox" name="favouriteGenre" value="<%= g.id %>"
+                <%= user.favouriteGenre && user.favouriteGenre.includes(String(g.id)) ? "checked" : "" %>>
+              <span><%= g.name %></span>
+            </label>
+          <% }) %>
         </div>
 
         <div class="input-group">
