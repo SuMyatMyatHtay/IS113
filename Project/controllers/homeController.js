@@ -1,18 +1,21 @@
 const Watchlist = require("../models/Watchlist");
 const User = require("../models/User"); 
+const {getRecentlyViewed} = require("../utils/recentlyViewedHelper")
 
 exports.getHomePage = async (req, res) => {
   try {
     let watchlistMovies = [];
     let featuredMovies = [];
     let recommendedMovies = []; 
+    let recentlyViewedMovies = []; 
 
     let user = null; 
 
     if (req.session.userId) {
       user = await User.findById(req.session.userId); 
 
-    //   const watchlistItems = await Watchlist.find({ userId: req.session.userId })
+      recentlyViewedMovies = await getRecentlyViewed(String(req.session.userId)); 
+      //   const watchlistItems = await Watchlist.find({ userId: req.session.userId })
     //     .populate("movieId");
 
     //   watchlistMovies = watchlistItems
@@ -78,7 +81,8 @@ exports.getHomePage = async (req, res) => {
     res.render("home", {
       featuredMovies,
       watchlistMovies,  //: previewWatchlist
-      recommendedMovies
+      recommendedMovies, 
+      recentlyViewedMovies
     });
   } catch (err) {
     console.error(err);
